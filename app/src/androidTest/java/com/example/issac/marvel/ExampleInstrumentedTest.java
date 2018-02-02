@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.issac.marvel", appContext.getPackageName());
+        assertEquals("com.example.issac.marvel_layout", appContext.getPackageName());
     }
 }

@@ -8,17 +8,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.issac.marvel.adapters.MarvelAdapter;
 import com.example.issac.marvel.adapters.ituneArrayAdapter;
 import com.example.issac.marvel.adapters.superheroeArrayAdapter;
+import com.example.issac.marvel.pojo.MarvelDude;
 import com.example.issac.marvel.pojo.itune;
 import com.example.issac.marvel.pojo.superheroe;
 
@@ -40,6 +44,7 @@ public class MainActivity extends Activity {
     private ListView listView;
     private ArrayAdapter<String> arrayAdapter;
     private superheroeArrayAdapter superheroeArrayAdapter;
+    private MarvelAdapter marvelAdapter;
     private RequestQueue mQueue;
     private Integer offset = 0;
     @Override
@@ -47,15 +52,24 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listView = (ListView) findViewById(R.id.lista);
-        //superheroeArrayAdapter = new superheroeArrayAdapter(this,R.layout.itunes, new ArrayList<superheroe>());
-
+        //superheroeArrayAdapter = new superheroeArrayAdapter(this,R.layout.marvel_layout, new ArrayList<superheroe>());
+        marvelAdapter = new MarvelAdapter(this, R.layout.marvel_layout, new ArrayList<MarvelDude>());
         arrayAdapter = new ArrayAdapter<String>(this,
                   android.R.layout.simple_list_item_1, new ArrayList<String>());
 
-        listView.setAdapter(arrayAdapter);
+        listView.setAdapter(marvelAdapter);
         //new MarvelJson(superheroeArrayAdapter).execute();
         mQueue = VolleySingleton.getInstance(this).getRequestQueue();
-        jsonMarvel(getMarvelString(offset.toString()), arrayAdapter);
+        jsonMarvel(getMarvelString(offset.toString()), marvelAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                MarvelDude md = marvelAdapter.getItem(i);
+                Toast.makeText(getApplicationContext(),
+                        md.id, Toast.LENGTH_LONG).show();
+            }
+        });
 
 
 
@@ -63,14 +77,14 @@ public class MainActivity extends Activity {
 
 
 
-    public void next (View view){
+    /*public void next (View view){
         offset+=100;
         jsonMarvel(getMarvelString(offset.toString()), arrayAdapter);
     }
     public void previous (View view){
         offset-=100;
         jsonMarvel(getMarvelString(offset.toString()), arrayAdapter);
-    }
+    }*/
 
 
 
@@ -78,7 +92,7 @@ public class MainActivity extends Activity {
 
     private static char[] HEXCodes = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
 
-    private void jsonMarvel(String url, final ArrayAdapter<String> adapter){
+    private void jsonMarvel(String url, final MarvelAdapter adapter){
         adapter.clear();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -88,7 +102,13 @@ public class MainActivity extends Activity {
                     JSONArray jsonArray = data.getJSONArray("results");
                     for (int i=0 ; i<jsonArray.length() ; i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        adapter.add(jsonObject.getString("name"));
+                        JSONObject thumbnail = jsonObject.getJSONObject("thumbnail");
+                        String string = thumbnail.getString("path") + "/portrait_small" + "." + thumbnail.getString("extension");
+                        MarvelDude marvelDude = new MarvelDude();
+                        marvelDude.id = jsonObject.getLong("id") + "";
+                        marvelDude.name = jsonObject.getString("name");
+                        marvelDude.url = string;
+                        adapter.add(marvelDude);
                     }
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
@@ -112,10 +132,10 @@ public class MainActivity extends Activity {
 
 
             /*
-                Conexión con el getway de marvel
+                Conexión con el getway de marvel_layout
             */
         final String CHARACTER_BASE_URL =
-                "http://gateway.marvel.com/v1/public/characters";
+                "http://gateway.marvel_layout.com/v1/public/characters";
             /*
                 Configuración de la petición
             */

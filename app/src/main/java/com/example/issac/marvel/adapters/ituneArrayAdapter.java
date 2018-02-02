@@ -2,7 +2,6 @@ package com.example.issac.marvel.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,16 +32,16 @@ public class ituneArrayAdapter extends ArrayAdapter<itune> {
         //itune itune1 = getItem(position);
 
         if(convertView==null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.itunes, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.marvel_layout, parent, false);
         }
 
         TextView collectionName = (TextView) convertView.findViewById(R.id.collection);
-        TextView trackName = (TextView) convertView.findViewById(R.id.trackName);
-        TextView trackPrice = (TextView) convertView.findViewById(R.id.trackPrice);
+        //TextView trackName = (TextView) convertView.findViewById(R.id.trackName);
+        //TextView trackPrice = (TextView) convertView.findViewById(R.id.trackPrice);
 
         collectionName.setText(itune0.collectionName);
-        trackName.setText(itune0.trackName);
-        trackPrice.setText(itune0.trackPrice+"");
+       // trackName.setText(itune0.trackName);
+        //trackPrice.setText(itune0.trackPrice+"");
 
         return convertView;
     }
