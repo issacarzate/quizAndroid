@@ -67,6 +67,15 @@ public class MainActivity extends Activity {
         mQueue = VolleySingleton.getInstance(this).getRequestQueue();
         //jsonMarvel(getMarvelString(offset.toString()), marvelAdapter);
         jsonStar(getStarString(),starAdapter);
+        jsonStar2(getStarString2(),starAdapter);
+        jsonStar2(getStarString3(),starAdapter);
+        jsonStar2(getStarString4(),starAdapter);
+        jsonStar2(getStarString5(),starAdapter);
+        jsonStar2(getStarString6(),starAdapter);
+        jsonStar2(getStarString7(),starAdapter);
+        jsonStar2(getStarString8(),starAdapter);
+        jsonStar2(getStarString9(),starAdapter);
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -131,6 +140,37 @@ public class MainActivity extends Activity {
         mQueue.add(request);
     }
 
+    private void jsonStar2(String url, final starAdapter adapter){
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    //JSONObject data = response.getJSONObject("data");
+                    JSONArray jsonArray = response.getJSONArray("results");
+                    for (int i=0 ; i<jsonArray.length() ; i++){
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String string = "https://png.icons8.com/color/1600/darth-vader.png";
+                        StarDude starDude = new StarDude();
+                        //marvelDude.id = jsonObject.getLong("id") + "";
+                        starDude.name = jsonObject.getString("name");
+                        starDude.birth = jsonObject.getString("birth_year");
+                        starDude.url = string;
+                        adapter.add(starDude);
+                    }
+                    adapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        mQueue.add(request);
+    }
+
     private void jsonMarvel(String url, final MarvelAdapter adapter){
         adapter.clear();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -163,12 +203,136 @@ public class MainActivity extends Activity {
         mQueue.add(request);
     }
 
+
+
     private String getStarString(){
         String ts = Long.toString(System.currentTimeMillis() / 1000);
         ArrayList<StarDude> arrayList = new ArrayList<>();
 
         final String CHARACTER_BASE_URL =
                 "https://swapi.co/api/people/?page=1&format=json";
+
+        Uri builtUri;
+        builtUri = Uri.parse(CHARACTER_BASE_URL).buildUpon().build();
+
+            /*
+                Ejecución de la conexión
+            */
+        return builtUri.toString();
+    }
+
+    private String getStarString2(){
+        String ts = Long.toString(System.currentTimeMillis() / 1000);
+        ArrayList<StarDude> arrayList = new ArrayList<>();
+
+        final String CHARACTER_BASE_URL =
+                "https://swapi.co/api/people/?page=2&format=json";
+
+        Uri builtUri;
+        builtUri = Uri.parse(CHARACTER_BASE_URL).buildUpon().build();
+
+            /*
+                Ejecución de la conexión
+            */
+        return builtUri.toString();
+    }
+
+    private String getStarString3(){
+        String ts = Long.toString(System.currentTimeMillis() / 1000);
+        ArrayList<StarDude> arrayList = new ArrayList<>();
+
+        final String CHARACTER_BASE_URL =
+                "https://swapi.co/api/people/?page=3&format=json";
+
+        Uri builtUri;
+        builtUri = Uri.parse(CHARACTER_BASE_URL).buildUpon().build();
+
+            /*
+                Ejecución de la conexión
+            */
+        return builtUri.toString();
+    }
+    private String getStarString4(){
+        String ts = Long.toString(System.currentTimeMillis() / 1000);
+        ArrayList<StarDude> arrayList = new ArrayList<>();
+
+        final String CHARACTER_BASE_URL =
+                "https://swapi.co/api/people/?page=4&format=json";
+
+        Uri builtUri;
+        builtUri = Uri.parse(CHARACTER_BASE_URL).buildUpon().build();
+
+            /*
+                Ejecución de la conexión
+            */
+        return builtUri.toString();
+    }
+    private String getStarString5(){
+        String ts = Long.toString(System.currentTimeMillis() / 1000);
+        ArrayList<StarDude> arrayList = new ArrayList<>();
+
+        final String CHARACTER_BASE_URL =
+                "https://swapi.co/api/people/?page=5&format=json";
+
+        Uri builtUri;
+        builtUri = Uri.parse(CHARACTER_BASE_URL).buildUpon().build();
+
+            /*
+                Ejecución de la conexión
+            */
+        return builtUri.toString();
+    }
+    private String getStarString6(){
+        String ts = Long.toString(System.currentTimeMillis() / 1000);
+        ArrayList<StarDude> arrayList = new ArrayList<>();
+
+        final String CHARACTER_BASE_URL =
+                "https://swapi.co/api/people/?page=6&format=json";
+
+        Uri builtUri;
+        builtUri = Uri.parse(CHARACTER_BASE_URL).buildUpon().build();
+
+            /*
+                Ejecución de la conexión
+            */
+        return builtUri.toString();
+    }
+    private String getStarString7(){
+        String ts = Long.toString(System.currentTimeMillis() / 1000);
+        ArrayList<StarDude> arrayList = new ArrayList<>();
+
+        final String CHARACTER_BASE_URL =
+                "https://swapi.co/api/people/?page=7&format=json";
+
+        Uri builtUri;
+        builtUri = Uri.parse(CHARACTER_BASE_URL).buildUpon().build();
+
+            /*
+                Ejecución de la conexión
+            */
+        return builtUri.toString();
+    }
+    private String getStarString8(){
+        String ts = Long.toString(System.currentTimeMillis() / 1000);
+        ArrayList<StarDude> arrayList = new ArrayList<>();
+
+        final String CHARACTER_BASE_URL =
+                "https://swapi.co/api/people/?page=8&format=json";
+
+        Uri builtUri;
+        builtUri = Uri.parse(CHARACTER_BASE_URL).buildUpon().build();
+
+            /*
+                Ejecución de la conexión
+            */
+        return builtUri.toString();
+    }
+    private String getStarString9(){
+        String ts = Long.toString(System.currentTimeMillis() / 1000);
+        ArrayList<StarDude> arrayList = new ArrayList<>();
+
+        final String CHARACTER_BASE_URL =
+                "https://swapi.co/api/people/?page=9&format=json";
 
         Uri builtUri;
         builtUri = Uri.parse(CHARACTER_BASE_URL).buildUpon().build();
