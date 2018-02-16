@@ -170,11 +170,6 @@ public class MainActivity extends Activity {
         final String CHARACTER_BASE_URL =
                 "https://swapi.co/api/people/?page=1&format=json";
 
-        String characterJsonStr = null;
-        final String TIMESTAMP = "ts";
-        final String API_KEY = "apikey";
-        final String HASH = "hash";
-
         Uri builtUri;
         builtUri = Uri.parse(CHARACTER_BASE_URL).buildUpon().build();
 
